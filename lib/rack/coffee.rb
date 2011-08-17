@@ -22,8 +22,9 @@ module Rack
       @bare = opts[:nowrap] || opts[:bare]
     end
     
-    def brew(coffee)
-      [CoffeeScript.compile(F.read(coffee), :bare => @bare)]
+    def brew(glob)
+      code = Dir[glob].sort.map { |f| F.read f }.join
+      [CoffeeScript.compile(code, :bare => @bare)]
     end
 
     def not_modified
@@ -55,7 +56,7 @@ module Rack
       if @join == F.basename(coffee, '.coffee')
         dir = F.dirname(coffee)
         modified_time = Dir["#{dir}/*.coffee"].map{|f| F.mtime(f) }.max
-        coffee = "#{dir}/"
+        coffee = "#{dir}/**/*.coffee"
       elsif F.file?(coffee)
         modified_time = F.mtime(coffee)
       end
