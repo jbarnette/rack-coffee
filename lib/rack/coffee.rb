@@ -1,3 +1,4 @@
+require 'coffee-script'
 require 'time'
 require 'rack/file'
 require 'rack/utils'
@@ -18,13 +19,10 @@ module Rack
       @cache = opts[:cache]
       @ttl = opts[:ttl] || 86400
       @join = opts[:join]
-      @command = ['coffee', '-p']
-      @command.push('--bare') if opts[:nowrap] || opts[:bare]
-      @command = @command.join(' ')
     end
     
     def brew(coffee)
-      IO.popen("#{@command} #{coffee}")
+      CoffeeScript.compile File.read(coffee), :bare => options[:nowrap] || options[:bare]
     end
 
     def not_modified
