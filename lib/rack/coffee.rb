@@ -19,10 +19,11 @@ module Rack
       @cache = opts[:cache]
       @ttl = opts[:ttl] || 86400
       @join = opts[:join]
+      @bare = opts[:nowrap] || opts[:bare]
     end
     
     def brew(coffee)
-      CoffeeScript.compile F.read(coffee), :bare => options[:nowrap] || options[:bare]
+      CoffeeScript.compile F.read(coffee), :bare => @bare
     end
 
     def not_modified
