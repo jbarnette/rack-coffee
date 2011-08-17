@@ -22,7 +22,7 @@ module Rack
     end
     
     def brew(coffee)
-      CoffeeScript.compile File.read(coffee), :bare => options[:nowrap] || options[:bare]
+      CoffeeScript.compile F.read(coffee), :bare => options[:nowrap] || options[:bare]
     end
 
     def not_modified
