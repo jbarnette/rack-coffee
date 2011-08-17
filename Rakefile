@@ -38,6 +38,7 @@ Rack Middlware for compiling and serving .coffee files using coffee-script; "/ja
       s.homepage        = 'http://github.com/mattly/rack-coffee'
       s.rubyforge_project = 'rack-coffee'
       
+      s.add_dependency 'coffee-script'
       s.add_dependency 'rack'
     end
 
